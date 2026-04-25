@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 from db import add_item, get_all
 
-st.set_page_config(page_title="Bacode Management System", layout="wide")
+st.set_page_config(page_title="Bacode Management System 3.12", layout="wide")
 
 # ---------------- LOGIN ----------------
 def login():
@@ -63,7 +63,7 @@ if "logged_in" not in st.session_state:
 if not st.session_state.logged_in:
     login()
 else:
-    st.title("📦 Barcode Management System ")
+    st.title("📦 Barcode Management System 3.12")
     st.caption("Based on MD365 F&O - Developed by Sweetson Joseph")
 
     menu = st.sidebar.radio("Navigation", ["Dashboard", "Scan Item"])
