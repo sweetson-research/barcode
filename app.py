@@ -63,7 +63,7 @@ if "logged_in" not in st.session_state:
 if not st.session_state.logged_in:
     login()
 else:
-    st.title("📦 Inventory Management System")
+    st.title("📦 Inventory Management System based on MD365 F&O")
     st.caption("Developed by Sweetson Joseph")
 
     menu = st.sidebar.radio("Navigation", ["Dashboard", "Scan Item"])
