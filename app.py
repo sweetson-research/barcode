@@ -63,8 +63,8 @@ if "logged_in" not in st.session_state:
 if not st.session_state.logged_in:
     login()
 else:
-    st.title("📦 Barcode Management System based on MD365 F&O")
-    st.caption("Developed by Sweetson Joseph")
+    st.title("📦 Barcode Management System ")
+    st.caption("Based on MD365 F&O - Developed by Sweetson Joseph")
 
     menu = st.sidebar.radio("Navigation", ["Dashboard", "Scan Item"])
 
