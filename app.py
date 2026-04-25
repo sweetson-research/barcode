@@ -63,8 +63,14 @@ if "logged_in" not in st.session_state:
 if not st.session_state.logged_in:
     login()
 else:
-    st.title("📦 Barcode Management System 3.12")
-    st.caption("Based on MD365 F&O - Developed by Sweetson Joseph")
+   col1, col2 = st.columns([1, 5])
+
+with col1:
+    st.image("logo.png", width=80)
+
+with col2:
+    st.markdown("### Inventory Management System")
+    st.caption("Developed by Sweetson Joseph")
 
     menu = st.sidebar.radio("Navigation", ["Dashboard", "Scan Item"])
 
