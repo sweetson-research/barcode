@@ -2,7 +2,8 @@ import streamlit as st
 import pandas as pd
 from db import add_item, get_all
 
-st.set_page_config(page_title="Bacode Management System 3.12", layout="wide")
+# ---------------- CONFIG ----------------
+st.set_page_config(page_title="Inventory System", layout="wide")
 
 # ---------------- LOGIN ----------------
 def login():
@@ -21,9 +22,20 @@ def login():
         else:
             st.error("Invalid credentials")
 
+# ---------------- HEADER ----------------
+def header():
+    col1, col2 = st.columns([1, 6])
+
+    with col1:
+        st.image("logo.png", width=70)
+
+    with col2:
+        st.markdown("### Inventory Management System")
+        st.caption("Developed by Sweetson Joseph")
+
 # ---------------- DASHBOARD ----------------
 def dashboard():
-    st.header("📊 Dashboard")
+    st.subheader("📊 Dashboard")
 
     data = get_all()
     df = pd.DataFrame(data)
@@ -43,7 +55,7 @@ def dashboard():
 
 # ---------------- SCANNER ----------------
 def scanner():
-    st.header("📦 Scan Item")
+    st.subheader("📦 Scan Item")
 
     if "last_barcode" not in st.session_state:
         st.session_state.last_barcode = ""
@@ -63,14 +75,11 @@ if "logged_in" not in st.session_state:
 if not st.session_state.logged_in:
     login()
 else:
-   col1, col2 = st.columns([1, 5])
+    header()
 
-with col1:
-    st.image("logo.png", width=80)
-
-with col2:
-    st.markdown("### Inventory Management System")
-    st.caption("Developed by Sweetson Joseph")
+    st.sidebar.image("logo.png", width=100)
+    st.sidebar.markdown("### Inventory System")
+    st.sidebar.caption("Sweetson Joseph")
 
     menu = st.sidebar.radio("Navigation", ["Dashboard", "Scan Item"])
 
