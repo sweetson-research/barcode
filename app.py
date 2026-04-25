@@ -3,7 +3,7 @@ import pandas as pd
 from db import add_item, get_all
 
 # ---------------- CONFIG ----------------
-st.set_page_config(page_title="Inventory System", layout="wide")
+st.set_page_config(page_title="BMS 3.12", layout="wide")
 
 # ---------------- LOGIN ----------------
 def login():
@@ -30,8 +30,8 @@ def header():
         st.image("logo.png", width=70)
 
     with col2:
-        st.markdown("### Inventory Management System")
-        st.caption("Developed by Sweetson Joseph")
+        st.markdown("### BMS 3.12")
+        st.caption("Codex MSD365 F&O - Developed by Sweetson Joseph")
 
 # ---------------- DASHBOARD ----------------
 def dashboard():
