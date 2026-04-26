@@ -3,9 +3,37 @@ import pandas as pd
 from db import add_item, get_all
 
 # ---------------- CONFIG ----------------
-st.set_page_config(page_title="BMS 3.12", layout="wide")
+st.set_page_config(page_title="Inventory System", layout="wide")
+
+# ---------------- CLEAN UI ----------------
+st.markdown("""
+<style>
+#MainMenu {visibility: hidden;}
+footer {visibility: hidden;}
+header {visibility: hidden;}
+
+.stApp {
+    background-color: #0f0f0f;
+    color: white;
+}
+
+.title {
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.card {
+    background-color: #1a1a1a;
+    padding: 15px;
+    border-radius: 10px;
+}
+</style>
+""", unsafe_allow_html=True)
 
 # ---------------- LOGIN ----------------
+if "logged_in" not in st.session_state:
+    st.session_state.logged_in = False
+
 def login():
     st.title("🔐 Login")
 
@@ -22,20 +50,9 @@ def login():
         else:
             st.error("Invalid credentials")
 
-# ---------------- HEADER ----------------
-def header():
-    col1, col2 = st.columns([1, 6])
-
-    with col1:
-        st.image("logo.png", width=70)
-
-    with col2:
-        st.markdown("### BMS 3.12")
-        st.caption("Codex MSD365 F&O - Developed by Sweetson Joseph")
-
 # ---------------- DASHBOARD ----------------
 def dashboard():
-    st.subheader("📊 Dashboard")
+    st.markdown('<div class="title">📊 Dashboard</div>', unsafe_allow_html=True)
 
     data = get_all()
     df = pd.DataFrame(data)
@@ -46,7 +63,7 @@ def dashboard():
 
     col1, col2, col3 = st.columns(3)
 
-    col1.metric("Total Items", len(df))
+    col1.metric("Total Scans", len(df))
     col2.metric("Unique Barcodes", df["barcode"].nunique())
     col3.metric("Item Types", df["item_name"].nunique())
 
@@ -55,13 +72,13 @@ def dashboard():
 
 # ---------------- SCANNER ----------------
 def scanner():
-    st.subheader("📦 Scan Item")
+    st.markdown('<div class="title">📦 Scan Item</div>', unsafe_allow_html=True)
 
     if "last_barcode" not in st.session_state:
         st.session_state.last_barcode = ""
 
-    barcode = st.text_input("Scan Barcode")
-    item_name = st.text_input("Item Name")
+    barcode = st.text_input("Scan Barcode", placeholder="Scan using scanner...")
+    item_name = st.text_input("Item Name (optional)")
 
     if barcode and barcode != st.session_state.last_barcode:
         add_item(barcode, item_name if item_name else "Unknown")
@@ -69,19 +86,13 @@ def scanner():
         st.success(f"Saved: {barcode}")
 
 # ---------------- MAIN ----------------
-if "logged_in" not in st.session_state:
-    st.session_state.logged_in = False
-
 if not st.session_state.logged_in:
     login()
 else:
-    header()
+    st.markdown('<div class="title">📦 Inventory System</div>', unsafe_allow_html=True)
+    st.caption("Developed by Sweetson Joseph")
 
-    st.sidebar.image("logo.png", width=100)
-    st.sidebar.markdown("### Inventory System")
-    st.sidebar.caption("Sweetson Joseph")
-
-    menu = st.sidebar.radio("Navigation", ["Dashboard", "Scan Item"])
+    menu = st.sidebar.radio("Menu", ["Dashboard", "Scan Item"])
 
     if menu == "Dashboard":
         dashboard()
